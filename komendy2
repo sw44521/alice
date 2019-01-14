@@ -1,0 +1,102 @@
+#include <stdio.h>
+#define ILWIERSZY 2
+#define ILKOLUMN 3
+
+/* Dodanie macierzy A + B = C */
+int dodajmac(double A[ILWIERSZY][ILKOLUMN], double B[ILWIERSZY][ILKOLUMN], double C[ILWIERSZY][ILKOLUMN]) {
+  int i, j;
+  for(i = 0; i < ILWIERSZY; i++)
+    for(j = 0; j < ILKOLUMN; j++)
+      C[i][j] = A[i][j] + B[i][j];
+  return 0;
+}
+
+/* Różnica macierzy A - B = C */
+int roznicamac(double A[ILWIERSZY][ILKOLUMN], double B[ILWIERSZY][ILKOLUMN], double C[ILWIERSZY][ILKOLUMN]) {
+  int i, j;
+  for(i = 0; i < ILWIERSZY; i++)
+    for(j = 0; j < ILKOLUMN; j++)
+      C[i][j] = A[i][j] - B[i][j];
+  return 0;
+}
+
+/* Mnozenie macierzy A + B = C */
+int mnozeniemac(double A[ILWIERSZY][ILKOLUMN], double B[ILKOLUMN][ILWIERSZY], double C[ILWIERSZY][ILKOLUMN]) {
+  int i, j, k;
+  for(i = 0; i < ILWIERSZY; i++)
+    for(j = 0; j < ILKOLUMN; j++)
+      C[i][j] = 0;
+  for(i = 0; i < ILWIERSZY; i++)
+    for(j = 0; j < ILWIERSZY; j++)
+      for(k = 0; k < ILKOLUMN; k++)
+        C[i][j] = C[i][j] + A[i][k] * B[k][j];
+  return 0;
+}
+
+
+int main() {
+  int i, j;  // liczniki
+  double A[2][3] = {
+    {1, 2, 3}, 
+    {1, 4, 5}};
+  double B[2][3] = {
+    {1, 3, 7}, 
+    {1, 5, 8}};
+  double C[2][3]; // macierz wyników
+  double D[3][2] = {
+    {3, 7}, 
+    {5, 8},
+    {7, 1}};
+  
+  printf("Macierz A\n");
+  for(i = 0; i < ILWIERSZY; i++) {
+    for(j = 0; j < ILKOLUMN; j++)
+      printf("%g ", A[i][j] );
+    puts("");
+  }
+  puts("");
+  
+  printf("Macierz B\n");
+  for(i = 0; i < ILWIERSZY; i++) {
+    for(j = 0; j < ILKOLUMN; j++)
+      printf("%g ", B[i][j] );
+    puts("");
+  }
+  puts("");
+
+  printf("Suma macierzy A + B\n");
+  dodajmac(A, B, C);
+  for(i = 0; i < ILWIERSZY; i++) {
+    for(j = 0; j < ILKOLUMN; j++)
+      printf("%g ", C[i][j] );
+    puts("");
+  }
+  puts("");
+  
+  printf("Roznica macierzy A - B\n");
+  roznicamac(A, B, C);
+  for(i = 0; i < ILWIERSZY; i++) {
+    for(j = 0; j < ILKOLUMN; j++)
+      printf("%g ", C[i][j] );
+    puts("");
+  }
+  puts("");
+  
+  printf("Macierz D\n");
+  for(i = 0; i < ILKOLUMN; i++) {
+    for(j = 0; j < ILWIERSZY; j++)
+      printf("%g ", D[i][j] );
+    puts("");
+  }
+  puts("");
+  
+  mnozeniemac(A, D, C);
+  printf("Iloczyn macierzy A * D\n");
+  for(i = 0; i < ILWIERSZY; i++) {
+    for(j = 0; j < ILWIERSZY; j++)
+      printf("%g ", C[i][j] );
+    puts("");
+  }
+
+  return 0;
+}
